@@ -9,7 +9,7 @@
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $name, $name, $feedback_esc);
+            mysqli_stmt_bind_param($stmt, "sss", $name, $email, $feedback_esc);
             
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -19,18 +19,18 @@
             $result = mysqli_stmt_execute($stmt);
             if($result){
                 $_SESSION['successMessage'] = "Your complaint is successfully sent";
-                header("location: contact.php");
+                header("location: Contact");
             }
             else{
                 $_SESSION['errorMessage'] = "Try again";
-                header("location: contact.php");
+                header("location: Contact");
             }
 
         }
 
         else{
             $_SESSION['errorMessage'] = "Try again";
-            header("location: contact.php");
+            header("location: Contact");
         }
         
         // Close statement

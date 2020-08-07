@@ -41,24 +41,6 @@
             <div class="uk-container">
 
                 <form action="send_confession.php" method="POST" onsubmit = "return validate()">
-                    <input type="hidden" value = "<?php echo $username_confession_to; ?>" name = "whome">
-                    <textarea onfocus = "BackToNormal('confessionArea')" id = "confessionArea" name = "confession" class="uk-textarea" name="" id="" cols="20" rows="10" placeholder="Your Confession..."></textarea>
-                    <?php 
-                        if(isset($_SESSION['userName']))
-                        {
-                    ?>
-                    <p class = "uk-margin-top"><input class = "uk-checkbox" type="checkbox" name = "reply" value = "true"> Want to get reply for the confession</p>
-                    <?php 
-                        }
-                        else
-                        {
-                            $_SESSION['comeback'] = "Confess-".$username_confession_to;
-                    ?>
-                    <p><a href = "SignIn">Sign In </a>to get reply for your confession</p>
-                    <?php
-                        }
-                    ?>
-
                     <!-- LOGIC FOR ERROR/SUCCESS MESSAGE STARTS HERE -->
                     <div>
                         <?php 
@@ -86,6 +68,24 @@
                         ?>            
                     </div>
                     <!-- LOGIC FOR ERROR/SUCCESS MESSAGE ENDS HERE -->
+                    
+                    <input type="hidden" value = "<?php echo $username_confession_to; ?>" name = "whome">
+                    <textarea onfocus = "BackToNormal('confessionArea')" id = "confessionArea" name = "confession" class="uk-textarea" name="" id="" cols="20" rows="10" placeholder="Your Confession..."></textarea>
+                    <?php 
+                        if(isset($_SESSION['userName']))
+                        {
+                    ?>
+                    <p class = "uk-margin-top"><input class = "uk-checkbox" type="checkbox" name = "reply" value = "true"> Want to get reply for the confession</p>
+                    <?php 
+                        }
+                        else
+                        {
+                            $_SESSION['comeback'] = "Confess-".$username_confession_to;
+                    ?>
+                    <p><a href = "SignIn">Sign In </a>to get reply for your confession</p>
+                    <?php
+                        }
+                    ?>
 
                     <button type = "submit" name = "submit" class="uk-button uk-button-secondary uk-width-1-1">SEND CONFESSION</button>
                 </form>

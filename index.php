@@ -74,7 +74,7 @@
 
 
 
-        <div  style = "height: 100vh;background-image: url('https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-position: center;background-size: cover;background-repeat: no-repeat;">
+        <div  style = "height: 100vh;background-image: url('https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-position: center;background-size: cover;background-repeat: no-repeat; position: relative; background-attachment: fixed;">
             <div style = "background-color: #00000066; height: 100%; width: 100;">
             <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light; top: 200">
 
@@ -160,11 +160,7 @@
     
     </div>
 
-    <footer class = "footer uk-flex uk-flex-center uk-flex-middle">
-    <p>
-    © La Confesion. All rights reserved. 2020 <br> Disclaimer : We are not resposible for any kind of lose, harassment, vulgar messages you recvieve while using La Confession use this app at your own responsibility.
-    </p>
-    </footer>
+<?php include_once("include/footer.php") ?>
 
     </body>
 </html>

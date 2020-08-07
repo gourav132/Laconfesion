@@ -23,3 +23,7 @@ RewriteRule ^Reply?$ reply.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^Contact?$ contact.php 
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^Manage?$ manage.php 

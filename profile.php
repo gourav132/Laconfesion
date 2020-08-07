@@ -182,8 +182,8 @@ if(isset($_SESSION['user'])){
 
     <button id = "load-confession" class="uk-button uk-button-secondary uk-align-center">SHOW MORE CONFESSIONS</button>
 
-
-
+<br>
+<?php include_once("include/footer.php"); ?>
 </body>
 </html>
 <?php

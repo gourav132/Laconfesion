@@ -73,6 +73,8 @@
 
         </div>
 
+        <?php include_once("include/footer.php"); ?>
+
         <script>
             function validate(){
                 var name = document.getElementById("name").value.trim();

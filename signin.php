@@ -35,7 +35,17 @@ session_start();
                             <?php
                         }
                         unset($_SESSION["successMessage"]);
-                        ?>            
+                        ?>         
+                        <?php 
+                            if(isset($_SESSION['success1']))
+                            {
+                                $message = $_SESSION['success1'];
+                                ?>
+                                <p class="uk-text-success" style = "text-align: center;"><?php echo $message; ?></p>
+                                <?php
+                            }
+                            unset($_SESSION["success1"]);
+                        ?>     
                     </div>
                     
                     <div class="uk-margin">
