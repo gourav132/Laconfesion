@@ -5,6 +5,7 @@
         <li class="uk-nav-header">Menu</li>
             <li><a href="Home"><span class="uk-margin-small-right uk-margin-small-top" uk-icon="icon: home"></span> Home</a></li>
             <li><a href="Profile"><span class="uk-margin-small-right uk-margin-small-top" uk-icon="icon: comments"></span> Confessions</a></li>
+            <li><a href="Search"><span class="uk-margin-small-right uk-margin-small-top" uk-icon="icon: commenting"></span> Confess</a></li>
             <li><a href="Reply"><span class="uk-margin-small-right uk-margin-small-top" uk-icon="icon: reply"></span> Replies</a></li>
             <li><a href="Contact"><span class="uk-margin-small-right uk-margin-small-top" uk-icon="icon: receiver"></span> Contact</a></li>
             <li class="uk-nav-divider"></li>

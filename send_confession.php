@@ -1,4 +1,5 @@
 <?php 
+sleep(5);
     session_start();
     include_once("connection.php");
     if(isset($_POST['submit']))
@@ -7,7 +8,7 @@
         $confession = $_POST['confession'];
         $reply = "";
         $reply = $_POST['reply'];
-        if($reply == 'true')
+        if($reply == "true")
         {
             $currentuser = $_SESSION['userName'];
             $sql = "SELECT * FROM account WHERE username=?";
@@ -35,7 +36,7 @@
         {
             $randomId = randomId();
             $getReply = "false";
-            echo mysqli_error($link);
+            // echo mysqli_error($link);
 
         }
             
@@ -48,12 +49,12 @@
             if($result2)
             {
                 $_SESSION["successMessage"] = "Confession sent";
-                header("location: Confess-$whome");
+                // header("location: Confess-$whome");
             }
             else
             {
                 $_SESSION["errorMessage"] = "Try Again";
-                header("location: Confess-$whome");
+                // header("location: Confess-$whome");
             }
     }
 ?>

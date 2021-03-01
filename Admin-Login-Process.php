@@ -1,4 +1,5 @@
 <?php
+ob_start();
     session_start();
     if(isset($_POST['submit']))
     {
@@ -19,23 +20,19 @@
             $hashed_password = $row['password'];
             echo $hashed_password;
             if(password_verify($passwd, $hashed_password)) {
-                $_SESSION['user'] = $name;
-                $_SESSION['userName'] = $user;
-                $_SESSION['randomId'] = $row['randomid'];
-                if(isset($_SESSION['comeback']))
-                {
-                    $where = $_SESSION['comeback'];
-                    header("location:$where");
+                if($user == "laconfesion_admin" && $name == "Admin"){
+                    $_SESSION['Admin'] = $user;
+                    header("location: Admin-content.php");
                 }
-                else
-                {
-                header("location: Profile");
+                else{
+                    $_SESSION["errorMessage"] = "You are not the one";
+                    header("location:Admin-Login.php");
                 }
-            } 
+            }             
             else
             {
                 $_SESSION["errorMessage"] = "Invalid Password";
-                header("location:SignIn");
+                header("location:Admin-Login.php");
             }
             // echo mysqli_error($link);
             }
@@ -43,7 +40,7 @@
         else
         {
             $_SESSION["errorMessage"] = "Invalid Credentials";
-            header("location:SignIn");
+            header("location:Admin-Login.php");
         }
     }
 

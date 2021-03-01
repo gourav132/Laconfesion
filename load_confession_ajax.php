@@ -1,4 +1,5 @@
 <?php session_start();
+sleep(5);
 $username = $_SESSION['userName'];
 $user = $_SESSION['user'];
 $confessionCount = $_POST['Confessioncount'];
@@ -32,6 +33,7 @@ $confessionCount = $_POST['Confessioncount'];
 
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <button class="uk-alert-close" type="button" uk-close></button>
                 <div class="uk-width-auto">
                     <img class="uk-border-circle" width="40" height="40" src="img/avatar.jpg">
                 </div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-    if(!isset($_SESSION['user']))
+    if(!isset($_SESSION['Admin']))
     {
         ?>
 
@@ -10,8 +10,8 @@ session_start();
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Sign In</title>
-                <link rel = "icon" href = "img/favicon.ico" type = "image/x-icon">
+                <title>Admin-Sign In</title>
+                <link rel = "icon" href = "img/black dot.jpg" type = "image/x-icon">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
                 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit-icons.min.js"></script>
@@ -20,10 +20,15 @@ session_start();
         <body>
             <?php include_once("include/navbar.php"); ?>
             <?php include_once("include/side-menu.php"); ?>
+            <hr class="uk-divider-icon">
+            <h1 class="uk-text-center uk-text-uppercase uk-margin-remove-top">
+            Admin Area
+            </h1>
+            <p class = "uk-text-muted uk-text-center">Looking for stats ?</p>
+            <hr class="uk-divider-icon">
+            <div class="uk-flex uk-flex-center uk-flex-middle" style="height: 45vh;">
 
-            <div class="uk-flex uk-flex-center uk-flex-middle" style="height: 75vh;">
-
-                <form onsubmit = "return SignIn_Validate()" action = "signin-process.php" method = "POST">
+                <form onsubmit = "return SignIn_Validate()" action = "Admin-Login-Process.php" method = "POST">
                     <h1 class="uk-text-center">LOGIN</h1>
                     <div>
                         <?php 
@@ -78,8 +83,6 @@ session_start();
                     <div class="uk-flex uk-flex-right">
                         <input type = "submit" name = "submit" class="uk-button uk-width-1-1 uk-button-primary" style="border-radius: 50px" value = "LOGIN">
                     </div>
-                    <p class="uk-text-center uk-text-small"><a href="Reset" class="uk-button-text">Forgot password ? </a></p>
-                    <p class="uk-text-center uk-text-small">Don't have an account? <a href="SignUp" class="uk-button-text"> Sign up </a></p>
 
                 </form>
                 
@@ -92,38 +95,38 @@ session_start();
     }
     else
     {
-        header("location: Profile");
+        header("location: Admin-Content.php");
     }
 ?>
 
 <script>
-                function SignIn_Validate(){
-                    var $valid = true;
-                    var userName = document.getElementById("user_name").value.trim();
-                    var password = document.getElementById("password").value.trim();
-                    if(userName == "" & password == ""){
-                        document.getElementById('user_name').className += ' uk-form-danger';
-                        document.getElementById('password').className += ' uk-form-danger';
-                        $valid = false;
-                    }
+    function SignIn_Validate(){
+        var $valid = true;
+        var userName = document.getElementById("user_name").value.trim();
+        var password = document.getElementById("password").value.trim();
+        if(userName == "" & password == ""){
+            document.getElementById('user_name').className += ' uk-form-danger';
+            document.getElementById('password').className += ' uk-form-danger';
+            $valid = false;
+        }
 
-                    else if(userName == ""){
-                        document.getElementById('user_name').className += ' uk-form-danger';
-                        $valid = false;
-                    }
+        else if(userName == ""){
+            document.getElementById('user_name').className += ' uk-form-danger';
+            $valid = false;
+        }
 
-                    else if(password == ""){
-                         document.getElementById('password').className += ' uk-form-danger';
-                        $valid = false;
-                    }
-                    return $valid;
-                }
+        else if(password == ""){
+                document.getElementById('password').className += ' uk-form-danger';
+            $valid = false;
+        }
+        return $valid;
+    }
 
-                function BackToNormal(para){
-                    document.getElementById(para).classList.remove("uk-form-danger");
-                }
+    function BackToNormal(para){
+        document.getElementById(para).classList.remove("uk-form-danger");
+    }
 </script>
 
 
-</body>
-        </html>
+    </body>
+</html>

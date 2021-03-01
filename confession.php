@@ -1,6 +1,22 @@
+<?php session_start(); 
+unset($_SESSION["comeback"]);?>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel = "icon" href = "img/favicon.ico" type = "image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit-icons.min.js"></script>
+        <!-- Jquery -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    </head>
+
 <?php
-    session_start();
-    unset($_SESSION["comeback"]);
+    
     $_SESSION['confesstouser'] = $_GET['user'];
     $username_confession_to = $_SESSION['confesstouser'];
     include_once("connection.php");
@@ -16,17 +32,7 @@
             $name_confession_to = $row['name'];
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/js/uikit-icons.min.js"></script>
-    </head>
 
     <body>
         <?php include_once("include/navbar.php"); ?>
@@ -36,46 +42,18 @@
         <h2 class="uk-text-center uk-text-uppercase">Want to confess somthing to <?php echo $name_confession_to; ?> ?</h2>
         <p class="uk-text-center uk-text-uppercase uk-text-muted">confess here</p>
         <hr class="uk-divider-icon">
-
         <div class="uk-section uk-section-muted">
             <div class="uk-container">
 
                 <form action="send_confession.php" method="POST" onsubmit = "return validate()">
                     <!-- LOGIC FOR ERROR/SUCCESS MESSAGE STARTS HERE -->
-                    <div>
-                        <?php 
-                        if(isset($_SESSION['errorMessage']))
-                        {
-                            $message = $_SESSION['errorMessage'];
-                            ?>
-                            <p class="uk-text-danger" style = "text-align: center;"><?php echo $message; ?></p>
-                            <?php
-                        }
-                        unset($_SESSION["errorMessage"]);
-                        ?>            
-                    </div>
-
-                    <div>
-                        <?php 
-                        if(isset($_SESSION['successMessage']))
-                        {
-                            $message = $_SESSION['successMessage'];
-                            ?>
-                            <p class="uk-text-success" style = "text-align: center;"><?php echo $message; ?></p>
-                            <?php
-                        }
-                        unset($_SESSION["successMessage"]);
-                        ?>            
-                    </div>
-                    <!-- LOGIC FOR ERROR/SUCCESS MESSAGE ENDS HERE -->
-                    
-                    <input type="hidden" value = "<?php echo $username_confession_to; ?>" name = "whome">
+                    <input type="hidden" id = "whome" value = "<?php echo $username_confession_to; ?>" name = "whome">
                     <textarea onfocus = "BackToNormal('confessionArea')" id = "confessionArea" name = "confession" class="uk-textarea" name="" id="" cols="20" rows="10" placeholder="Your Confession..."></textarea>
                     <?php 
                         if(isset($_SESSION['userName']))
                         {
                     ?>
-                    <p class = "uk-margin-top"><input class = "uk-checkbox" type="checkbox" name = "reply" value = "true"> Want to get reply for the confession</p>
+                    <p class = "uk-margin-top"><input id="reply" class = "uk-checkbox" type="checkbox" name = "reply"> Want to get reply for the confession</p>
                     <?php 
                         }
                         else
@@ -86,9 +64,26 @@
                     <?php
                         }
                     ?>
-
+                                <div class="uk-container" style="display: none;" id="wait">
+                <img class="uk-align-center" src="img/ajax.gif" alt="">
+            </div><br>
                     <button type = "submit" name = "submit" class="uk-button uk-button-secondary uk-width-1-1">SEND CONFESSION</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- modal testing -->
+        <a style="display: none" id = "modalclick" class="uk-button uk-button-default" href="#modal-center" uk-toggle>Open</a>
+        <div id="modal-center" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                <div id="message"></div>
+                <hr>
+                <h3 class="uk-text-center uk-text-uppercase">found it interesting to confess to someone without being recognised create your very own la confesion account and let your friends confess to you anonymously</h3>
+        <a class="uk-button uk-align-center uk-button-secondary" href="signup.php">SIGN UP NOW</a>
+
             </div>
         </div>
 
@@ -96,6 +91,7 @@
         <h3 class="uk-text-center uk-text-uppercase">found it interesting to confess to someone without being recognised create your very own la confesion account and let your friends confess to you anonymously</h3>
         <a class="uk-button uk-align-center uk-button-secondary" href="signup.php">SIGN UP NOW</a>
         <hr class="uk-divider-icon">
+        <div id = "result"></div>
 
                     <?php 
 }}  
@@ -114,17 +110,40 @@
 
 
         <script>
+
+$(document).ajaxStart(function(){
+  $("#wait").css("display", "block");
+});
+
+$(document).ajaxComplete(function(){
+  $("#wait").css("display", "none");
+});
         // function to valid form
             function validate(){
-                var $valid = true;
                 var confessionArea = document.getElementById("confessionArea").value.trim();
+                if(document.getElementById("reply") == null)
+                {
+                    var reply = "false";
+                }
+                else{
+                    var reply = document.getElementById("reply").checked;
+                }             
+                var whome = document.getElementById("whome").value;
                 if(confessionArea == "") 
                 {
                     document.getElementById('confessionArea').className += ' uk-form-danger';
-                    $valid = false;
                 }
-                return $valid;
+                else
+                {
+                    $("#result").load("send_confession.php", {submit: "ok", confession: confessionArea, reply: reply, whome:whome}, function(){
+                        $("#message").load("message/confessionMessage.php", function(){
+                            document.getElementById("modalclick").click();
+                            document.getElementById("confessionArea").value = "";
+                        });
+                    });
                 }
+                return false;
+            }
 
             function BackToNormal(para){
                 document.getElementById(para).classList.remove("uk-form-danger");

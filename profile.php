@@ -12,6 +12,7 @@ if(isset($_SESSION['user'])){
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel = "icon" href = "img/favicon.ico" type = "image/x-icon">
         <title>Confession</title>
         <!-- UIkit CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
@@ -25,9 +26,25 @@ if(isset($_SESSION['user'])){
         .reply{
             display: none;
         }
+        .load{
+            display: none;
+            border: none;
+            background: none;
+        }
     </style>
 
     <script>
+
+        $(document).ajaxStart(function(){
+        $(".load").css("display", "block");
+        $(".show").css("display", "none");
+        });
+
+        $(document).ajaxComplete(function(){
+        $(".load").css("display", "none");
+        $(".show").css("display", "block");
+        });
+
         function reply(dynamicId){
             dynamicId.style.display = "block";
         }
@@ -80,9 +97,10 @@ if(isset($_SESSION['user'])){
 
                 <div>
                     <div class="uk-card uk-card-default uk-width-1-1@m">
-
                         <div class="uk-card-header">
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <a href=""> <span class="uk-alert-close" uk-icon="download"></span></a>
+                            
                                 <div class="uk-width-auto">
                                     <img class="uk-border-circle" width="40" height="40" src="img/avatar.jpg">
                                 </div>
@@ -180,7 +198,8 @@ if(isset($_SESSION['user'])){
     </div>
 </div>
 
-    <button id = "load-confession" class="uk-button uk-button-secondary uk-align-center">SHOW MORE CONFESSIONS</button>
+    <button id = "load-confession" class="uk-button uk-button-secondary uk-align-center show">SHOW MORE CONFESSIONS</button>
+    <button class = "load uk-align-center" disabled><div uk-spinner="ratio: 2"></div></button>
 
 <br>
 <?php include_once("include/footer.php"); ?>
