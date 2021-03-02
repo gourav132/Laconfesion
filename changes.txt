@@ -1,5 +1,0 @@
-confession.php
-sidebar.php
-index.php
-.htaccess
-manage.php
